@@ -1,6 +1,5 @@
 package cat.institutmontivi.decissorviewmodel25.ui.pantalles
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,12 +14,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.montilivi.decissorviewmodel25.R
+import cat.montilivi.decissorviewmodel25.ui.ViewModels.OracleRespostaViewModel
 
 @Preview
 @Composable
-fun PantallaOracleResposta (pregunta: String = "Aquí va la pregunta")
-{
+fun PantallaOracleResposta (
+    viewModel: OracleRespostaViewModel = viewModel()
+) {
+    var estat = viewModel.estat
     Column(
         Modifier
             .fillMaxSize()
@@ -31,11 +34,11 @@ fun PantallaOracleResposta (pregunta: String = "Aquí va la pregunta")
             )){
         Spacer(modifier = Modifier.weight(1f))
 
-        Text(text = pregunta, Modifier.align(Alignment.CenterHorizontally).padding(16.dp), style = MaterialTheme.typography.displaySmall)
+        Text(text = estat.pregunta, Modifier.align(Alignment.CenterHorizontally).padding(16.dp), style = MaterialTheme.typography.displaySmall)
 
         Spacer(modifier = Modifier.weight(3f))
 
-        Text(text = "", Modifier.align(Alignment.CenterHorizontally).padding(16.dp), style = MaterialTheme.typography.displayMedium)
+        Text(text = estat.resposta, Modifier.align(Alignment.CenterHorizontally).padding(16.dp), style = MaterialTheme.typography.displayMedium)
 
         Spacer(modifier = Modifier.weight(1f))
     }

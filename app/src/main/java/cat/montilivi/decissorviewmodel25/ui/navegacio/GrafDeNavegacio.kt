@@ -59,9 +59,7 @@ fun GrafDeNavegacio (controladorDeNavegacio: NavHostController = rememberNavCont
 
         composable<DestinacioOracleResposta> {
             val argument = it.toRoute<DestinacioOracleResposta>()
-            PantallaOracleResposta(
-                pregunta = argument.pregunta,
-              )
+            PantallaOracleResposta()
         }
     }
 

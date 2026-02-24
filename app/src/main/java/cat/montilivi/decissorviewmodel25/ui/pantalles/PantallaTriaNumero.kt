@@ -15,12 +15,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cat.institutmontivi.decissorviewmodel25.ui.common.Boto
+import cat.montilivi.decissorviewmodel25.ui.ViewModels.TriaNumeroViewModel
 
 @Preview
 @Composable
-fun PantallaTriaUnNumero ()
-{
+fun PantallaTriaUnNumero (
+    viewModel: TriaNumeroViewModel = viewModel()
+) {
+    val estat = viewModel.estat
+
+
     Column(
         Modifier
             .padding(32.dp)
@@ -30,7 +36,12 @@ fun PantallaTriaUnNumero ()
             Modifier
                 .fillMaxWidth()
                 .weight(1f)) {
-            Text("???",
+            Text(
+                if (estat.sortejant) {
+                    "???"
+                } else {
+                    estat.resultat.toString()
+                },
                 Modifier.align(Alignment.Center),
                 style = MaterialTheme.typography.displayLarge,
                 fontSize = 148.sp,
@@ -38,11 +49,30 @@ fun PantallaTriaUnNumero ()
             )
         }
 
-        Boto(
-            modifier = Modifier
-                .weight(0.75F)
-                .fillMaxHeight(),
-            text = "Sorteja",
-            clic = {  })
+        if (!estat.sortejant) {
+            Boto(
+                modifier = Modifier
+                    .weight(0.75F)
+                    .fillMaxHeight(),
+                text = "Sorteja",
+                clic = {
+                    viewModel.sortejaNumero(
+                        0,
+                        999,
+                        500L
+                    )
+                }
+            )
+        } else {
+            Text(
+                text = "Sortejant...",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.displayMedium,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align ( Alignment.CenterHorizontally )
+            )
+        }
     }
 }
