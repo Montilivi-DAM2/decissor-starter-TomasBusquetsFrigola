@@ -1,16 +1,23 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    //Serialització
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
-    namespace = "org.es.tomas.practica_viewmodel"
+    namespace = "cat.montilivi.decissorviewmodel25"
     compileSdk {
-        version = release(36)
+        version = release(36) {
+            minorApiLevel = 1
+        }
+        apply {
+            false
+        }
     }
 
     defaultConfig {
-        applicationId = "org.es.tomas.practica_viewmodel"
+        applicationId = "cat.montilivi.decissorviewmodel25"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -46,9 +53,15 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.navigation.runtime.ktx)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.material3)
+
+    //Serialització
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.10.0")
+    //Navegació
+    implementation("androidx.navigation:navigation-compose:2.9.7")
+    //Biblioteca extesa d'icones
+    implementation("androidx.compose.material:material-icons-extended")
+    //implementation ("androidx.compose.material:material:1.7.5")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

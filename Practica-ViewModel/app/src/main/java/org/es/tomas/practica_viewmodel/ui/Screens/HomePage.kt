@@ -22,6 +22,7 @@ fun homePage (
             .background(color = MaterialTheme.colorScheme.surfaceVariant)
             .padding(48.dp)
     ) {
+
         Text(
             text = "Eliminats: ",
 
