@@ -9,7 +9,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.es.tomas.pedra_paper_tisores.ui.Screens.EndOfGameScreen
+import org.es.tomas.pedra_paper_tisores.ui.Screens.EndOfRoundScreen
 import org.es.tomas.pedra_paper_tisores.ui.Screens.HomePage
+import org.es.tomas.pedra_paper_tisores.ui.Screens.RockPaperScissors
 
 @Composable
 fun navigationGraf(
@@ -23,6 +26,23 @@ fun navigationGraf(
     ) {
         composable<HomePageDestiny> {
             HomePage()
+        }
+        composable<GameScreenDestiny> {
+            RockPaperScissors(
+                rival = TODO()
+            )
+        }
+        composable<EndOfRoundScreenDestiny> {
+            EndOfRoundScreen(
+                rival = TODO(),
+                yourPlay = TODO(),
+                rivalPlay = TODO()
+            )
+        }
+        composable<EndOfGameScreenDestiny> {
+            EndOfGameScreen(
+                rival = TODO()
+            )
         }
     }
 }
