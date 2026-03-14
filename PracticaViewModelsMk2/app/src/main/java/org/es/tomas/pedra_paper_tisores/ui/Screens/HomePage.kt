@@ -23,7 +23,7 @@ import org.es.tomas.pedra_paper_tisores.ui.Navigation.GameScreenDestination
 @Preview
 @Composable
 fun HomePage(
-    onClick: () -> Unit = {},
+//    onClick: () -> Unit = {},
     navController: NavHostController = rememberNavController(),
 ){
     val data = Data()
@@ -51,10 +51,12 @@ fun HomePage(
             text = "A NEW CHALLENGE APPROACHES!",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSecondary,
-            textAlign = TextAlign.Center
+            modifier = Modifier.padding(
+                start = 40.dp
+            )
         )
         Text(
-            text = "${player.name}\nWINRATE: ${player.wonRounds}       LOSSRATE: ${player.lostRounds}",
+            text = player.toString(),
             style = MaterialTheme.typography.displaySmall,
             color = MaterialTheme.colorScheme.onTertiary,
             textAlign = TextAlign.Center
@@ -65,6 +67,16 @@ fun HomePage(
             click = {
                 navController.navigate(GameScreenDestination)
             }
+        )
+//        Spacer(Modifier.padding(20.dp))
+        Text(
+            text = "ROUNDS WON: $nDefeated     ROUNDS LOST: $nLost",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onTertiary,
+            modifier = Modifier.padding(
+                top = 20.dp,
+                start = 10.dp
+            )
         )
     }
 }

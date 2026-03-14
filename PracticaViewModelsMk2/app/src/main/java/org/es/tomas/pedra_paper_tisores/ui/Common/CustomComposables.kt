@@ -14,6 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import org.es.tomas.pedra_paper_tisores.Model.Enums.Plays
+import org.es.tomas.pedra_paper_tisores.Model.Player
+import org.es.tomas.pedra_paper_tisores.ui.Screens.compareSelectedOptions
+import org.es.tomas.pedra_paper_tisores.ui.ViewModels.GameScreenViewModel
 
 @Composable
 fun Botó (
@@ -50,4 +55,25 @@ fun Botó (
         }
 
     }
+}
+
+@Composable
+fun PlaySelector(
+    viewModel: GameScreenViewModel,
+    rival: Player,
+    navController: NavController,
+    textOption: Plays
+) {
+    Botó(
+        text = textOption.toString(),
+        click = {
+            viewModel.decide(500L)
+            compareSelectedOptions(
+                rivalPlay = viewModel.state.result,
+                yourPlay = textOption,
+                rival = rival,
+                navController = navController
+            )
+        }
+    )
 }

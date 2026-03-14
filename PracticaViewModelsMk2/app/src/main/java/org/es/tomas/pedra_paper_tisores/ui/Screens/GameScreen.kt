@@ -3,32 +3,38 @@ package org.es.tomas.pedra_paper_tisores.ui.Screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import org.es.tomas.pedra_paper_tisores.Model.Data
 import org.es.tomas.pedra_paper_tisores.Model.Enums.Plays
 import org.es.tomas.pedra_paper_tisores.Model.Player
+import org.es.tomas.pedra_paper_tisores.ui.Common.Botó
+import org.es.tomas.pedra_paper_tisores.ui.Common.PlaySelector
+import org.es.tomas.pedra_paper_tisores.ui.Navigation.HomePageDestiny
+import org.es.tomas.pedra_paper_tisores.ui.Screens.RockPaperScissors
+import org.es.tomas.pedra_paper_tisores.ui.ViewModels.GameScreenViewModel
 
 @Composable
-fun GameScreen(
+fun RockPaperScissors(
+    rival: Player,
+    viewModel: GameScreenViewModel = viewModel(),
     navController: NavController = rememberNavController(),
-    rival: Player
 ) {
-    val rivalPlay: Plays
-    rival.hasPlayedRound()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -37,25 +43,28 @@ fun GameScreen(
                 start = 15.dp,
                 top = 60.dp,
                 end = 15.dp,
-                bottom = 0.dp
+                bottom = 60.dp
             )
     ) {
-        Box(
-            modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.secondary)
-                .fillMaxWidth()
-                .size(150.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(
-                text = rival.name,
-                style = MaterialTheme.typography.displaySmall,
-//                textAlign = TextAlign.Center
-            )
-
-        }
+        Text(
+            text = rival.name,
+            style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center
+        )
+        HorizontalDivider(Modifier.padding(20.dp))
+        PlaySelector(viewModel, rival, navController, Plays.ROCK)
+        Spacer(Modifier.padding(5.dp))
+        PlaySelector(viewModel, rival, navController, Plays.PAPER)
+        Spacer(Modifier.padding(5.dp))
+        PlaySelector(viewModel, rival, navController, Plays.SCISSORS)
+        Spacer(Modifier.padding(5.dp))
+        PlaySelector(viewModel, rival, navController, Plays.SPOCK)
+        Spacer(Modifier.padding(5.dp))
+        PlaySelector(viewModel, rival, navController, Plays.LIZARD)
     }
 }
+
+
 
 @Preview
 @Composable
@@ -64,7 +73,118 @@ fun previewSreen() {
     val gameData = Data()
     gameData.createPlayer()
     player = gameData.players[0]
-    GameScreen(
-        rival = player
-    )
+    RockPaperScissors(rival = player)
+}
+
+fun compareSelectedOptions(
+    rivalPlay: Plays,
+    yourPlay: Plays,
+    rival: Player,
+    navController: NavController
+) {
+    if (yourPlay == Plays.PAPER) {
+        if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.LIZARD) {
+            rival.hasWonRound()
+            if (rival.wonRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SPOCK) {
+            rival.hasLostRound()
+            if (rival.lostRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else {
+            navController.navigate(HomePageDestiny)
+        }
+    }
+    else if (yourPlay == Plays.SCISSORS) {
+        if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SPOCK) {
+            rival.hasWonRound()
+            if (rival.wonRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.LIZARD) {
+            rival.hasLostRound()
+            if (rival.lostRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else {
+            navController.navigate(HomePageDestiny)
+        }
+    }
+    else if (yourPlay == Plays.ROCK) {
+        if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.LIZARD) {
+            rival.hasWonRound()
+            if (rival.wonRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.SPOCK) {
+            rival.hasLostRound()
+            if (rival.lostRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else {
+            navController.navigate(HomePageDestiny)
+        }
+    }
+    else if (yourPlay == Plays.SPOCK) {
+        if (rivalPlay == Plays.PAPER || rivalPlay == Plays.LIZARD) {
+            rival.hasWonRound()
+            if (rival.wonRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SCISSORS) {
+            rival.hasLostRound()
+            if (rival.lostRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else {
+            navController.navigate(HomePageDestiny)
+        }
+    }
+    else if (yourPlay == Plays.LIZARD) {
+        if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.ROCK) {
+            rival.hasWonRound()
+            if (rival.wonRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.SPOCK) {
+            rival.hasLostRound()
+            if (rival.lostRounds >= 3) {
+
+            } else {
+                navController.navigate(HomePageDestiny)
+            }
+        }
+        else {
+            navController.navigate(HomePageDestiny)
+        }
+    }
 }
