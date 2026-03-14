@@ -18,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import org.es.tomas.pedra_paper_tisores.Model.Data
 import org.es.tomas.pedra_paper_tisores.Model.Player
 import org.es.tomas.pedra_paper_tisores.ui.Common.Botó
-import org.es.tomas.pedra_paper_tisores.ui.Navigation.GameScreenDestination
+import org.es.tomas.pedra_paper_tisores.ui.Navigation.GameScreenDestiny
 
 @Preview
 @Composable
@@ -65,7 +65,7 @@ fun HomePage(
         Botó(
             text = "PLAY",
             click = {
-                navController.navigate(GameScreenDestination)
+                navController.navigate(GameScreenDestiny)
             }
         )
 //        Spacer(Modifier.padding(20.dp))

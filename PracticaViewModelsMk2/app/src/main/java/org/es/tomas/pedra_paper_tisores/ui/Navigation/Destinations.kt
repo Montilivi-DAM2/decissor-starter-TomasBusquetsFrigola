@@ -6,4 +6,10 @@ import kotlinx.serialization.Serializable
 object HomePageDestiny
 
 @Serializable
-object GameScreenDestination
+object GameScreenDestiny
+
+@Serializable
+object EndOfRoundScreenDestiny
+
+@Serializable
+object EndOfGameScreenDestiny

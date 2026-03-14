@@ -1,6 +1,9 @@
 package org.es.tomas.pedra_paper_tisores.ui.Common
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -76,4 +79,21 @@ fun PlaySelector(
             )
         }
     )
+}
+
+@Composable
+fun ColumnScope.GameResultDisplay(play: Plays) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.secondary)
+            .align(Alignment.CenterHorizontally)
+    ) {
+        Text(
+            text = "YOUR PLAY: $play",
+            style = MaterialTheme.typography.displaySmall,
+            color = MaterialTheme.colorScheme.onSecondary,
+            textAlign = TextAlign.Center
+        )
+    }
 }

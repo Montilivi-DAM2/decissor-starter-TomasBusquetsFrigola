@@ -25,6 +25,7 @@ import org.es.tomas.pedra_paper_tisores.Model.Enums.Plays
 import org.es.tomas.pedra_paper_tisores.Model.Player
 import org.es.tomas.pedra_paper_tisores.ui.Common.Botó
 import org.es.tomas.pedra_paper_tisores.ui.Common.PlaySelector
+import org.es.tomas.pedra_paper_tisores.ui.Navigation.EndOfGameScreenDestiny
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.HomePageDestiny
 import org.es.tomas.pedra_paper_tisores.ui.Screens.RockPaperScissors
 import org.es.tomas.pedra_paper_tisores.ui.ViewModels.GameScreenViewModel
@@ -49,7 +50,8 @@ fun RockPaperScissors(
         Text(
             text = rival.name,
             style = MaterialTheme.typography.headlineSmall,
-                textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onPrimary
         )
         HorizontalDivider(Modifier.padding(20.dp))
         PlaySelector(viewModel, rival, navController, Plays.ROCK)
@@ -76,6 +78,7 @@ fun previewSreen() {
     RockPaperScissors(rival = player)
 }
 
+//region: Funcions internes de la pantalla
 fun compareSelectedOptions(
     rivalPlay: Plays,
     yourPlay: Plays,
@@ -86,7 +89,7 @@ fun compareSelectedOptions(
         if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.LIZARD) {
             rival.hasWonRound()
             if (rival.wonRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -94,7 +97,7 @@ fun compareSelectedOptions(
         else if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SPOCK) {
             rival.hasLostRound()
             if (rival.lostRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -107,7 +110,7 @@ fun compareSelectedOptions(
         if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SPOCK) {
             rival.hasWonRound()
             if (rival.wonRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -115,7 +118,7 @@ fun compareSelectedOptions(
         else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.LIZARD) {
             rival.hasLostRound()
             if (rival.lostRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -128,7 +131,7 @@ fun compareSelectedOptions(
         if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.LIZARD) {
             rival.hasWonRound()
             if (rival.wonRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -136,7 +139,7 @@ fun compareSelectedOptions(
         else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.SPOCK) {
             rival.hasLostRound()
             if (rival.lostRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -149,7 +152,7 @@ fun compareSelectedOptions(
         if (rivalPlay == Plays.PAPER || rivalPlay == Plays.LIZARD) {
             rival.hasWonRound()
             if (rival.wonRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -157,7 +160,7 @@ fun compareSelectedOptions(
         else if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SCISSORS) {
             rival.hasLostRound()
             if (rival.lostRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -170,7 +173,7 @@ fun compareSelectedOptions(
         if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.ROCK) {
             rival.hasWonRound()
             if (rival.wonRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -178,7 +181,7 @@ fun compareSelectedOptions(
         else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.SPOCK) {
             rival.hasLostRound()
             if (rival.lostRounds >= 3) {
-
+                navController.navigate(EndOfGameScreenDestiny)
             } else {
                 navController.navigate(HomePageDestiny)
             }
@@ -188,3 +191,4 @@ fun compareSelectedOptions(
         }
     }
 }
+//endregion
