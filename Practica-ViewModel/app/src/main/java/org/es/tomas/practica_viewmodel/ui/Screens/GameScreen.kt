@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import org.es.tomas.practica_viewmodel.model.Jugador
+import org.es.tomas.practica_viewmodel.model.Classes.Data
+import org.es.tomas.practica_viewmodel.model.Classes.Jugador
+import org.es.tomas.practica_viewmodel.model.Enums.Noms
 import org.es.tomas.practica_viewmodel.ui.Viewmodels.GameScreenState
 import org.es.tomas.practica_viewmodel.ui.Viewmodels.GameScreenViewModel
 

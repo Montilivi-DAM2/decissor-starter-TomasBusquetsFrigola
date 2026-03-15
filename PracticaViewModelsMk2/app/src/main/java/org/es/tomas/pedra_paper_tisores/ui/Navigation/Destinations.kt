@@ -1,15 +1,21 @@
 package org.es.tomas.pedra_paper_tisores.ui.Navigation
 
 import kotlinx.serialization.Serializable
+import org.es.tomas.pedra_paper_tisores.Model.Enums.Plays
+import org.es.tomas.pedra_paper_tisores.Model.Player
 
 @Serializable
 object HomePageDestiny
 
 @Serializable
-object GameScreenDestiny
+data class RockPaperScissorsDestiny (val rival: Player)
 
 @Serializable
-object EndOfRoundScreenDestiny
+data class EndOfRoundScreenDestiny (
+    val rival: Player,
+    val yourPlay: Plays,
+    val rivalPlays: Plays
+)
 
 @Serializable
-object EndOfGameScreenDestiny
+data class EndOfGameScreenDestiny (val rival: Player)

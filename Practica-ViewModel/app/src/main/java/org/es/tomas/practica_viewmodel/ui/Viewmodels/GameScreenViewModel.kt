@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.es.tomas.practica_viewmodel.model.Jugades
+import org.es.tomas.practica_viewmodel.model.Enums.Jugades
 
 class GameScreenViewModel: ViewModel() {
     var state by mutableStateOf(GameScreenState())
@@ -27,6 +27,8 @@ class GameScreenViewModel: ViewModel() {
             state = state.copy(play = Jugades.values().toList().shuffled().first())
         }
     }
+
+//    fun gameResult
 }
 
 data class GameScreenState(

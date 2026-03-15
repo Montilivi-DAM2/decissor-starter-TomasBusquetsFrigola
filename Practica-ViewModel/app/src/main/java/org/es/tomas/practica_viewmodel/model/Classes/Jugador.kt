@@ -1,2 +1,15 @@
-package org.es.tomas.practica_viewmodel.model.Classes 
+package org.es.tomas.practica_viewmodel.model.Classes
 
+class Jugador(
+    val nom: String,
+    var rondesGuanyades: Int = 0,
+    var rondesPerdudes: Int = 0
+) {
+    fun incrementaGuanyades() {
+        this.rondesGuanyades++
+    }
+
+    fun incrementaPerdudes() {
+        this.rondesPerdudes++
+    }
+}

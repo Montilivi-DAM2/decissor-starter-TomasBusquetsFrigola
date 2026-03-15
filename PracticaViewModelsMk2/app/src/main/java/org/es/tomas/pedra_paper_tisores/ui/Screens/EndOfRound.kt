@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -60,9 +61,33 @@ fun EndOfRoundScreen(
             )
             .fillMaxWidth()
         )
-        GameResultDisplay(yourPlay)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.secondary)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = "YOUR PLAY: $yourPlay",
+                style = MaterialTheme.typography.displaySmall,
+                color = MaterialTheme.colorScheme.onSecondary,
+                textAlign = TextAlign.Center
+            )
+        }
         Spacer(Modifier.padding(25.dp))
-        GameResultDisplay(rivalPlay)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.secondary)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text(
+                text = "RIVAL'S PLAY: $rivalPlay",
+                style = MaterialTheme.typography.displaySmall,
+                color = MaterialTheme.colorScheme.onSecondary,
+                textAlign = TextAlign.Center
+            )
+        }
         HorizontalDivider(Modifier
             .padding(
                 top = 15.dp,

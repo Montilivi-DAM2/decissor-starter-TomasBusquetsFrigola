@@ -1,5 +1,6 @@
 package org.es.tomas.pedra_paper_tisores.ui.Navigation
 
+//import RockPaperScissors
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -9,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import org.es.tomas.pedra_paper_tisores.ui.Screens.EndOfGameScreen
 import org.es.tomas.pedra_paper_tisores.ui.Screens.EndOfRoundScreen
 import org.es.tomas.pedra_paper_tisores.ui.Screens.HomePage
@@ -27,21 +29,24 @@ fun navigationGraf(
         composable<HomePageDestiny> {
             HomePage()
         }
-        composable<GameScreenDestiny> {
+        composable<RockPaperScissorsDestiny> {
+            var destiny: RockPaperScissorsDestiny = it.toRoute()
             RockPaperScissors(
-                rival = TODO()
+                rival = destiny.rival
             )
         }
         composable<EndOfRoundScreenDestiny> {
+            var destiny: EndOfRoundScreenDestiny = it.toRoute()
             EndOfRoundScreen(
-                rival = TODO(),
-                yourPlay = TODO(),
-                rivalPlay = TODO()
+                destiny.rival,
+                yourPlay = destiny.yourPlay,
+                rivalPlay = destiny.rivalPlays
             )
         }
         composable<EndOfGameScreenDestiny> {
-            EndOfGameScreen(
-                rival = TODO()
+            var destiny: EndOfGameScreenDestiny = it.toRoute()
+            EndOfGameScreenDestiny(
+                rival = destiny.rival
             )
         }
     }
