@@ -2,10 +2,12 @@ package org.es.tomas.pedra_paper_tisores.Preferences
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -21,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.es.tomas.pedra_paper_tisores.Model.DataStorage.MyPreferencesDataStore
 import org.es.tomas.pedra_paper_tisores.ui.Common.GamemodeBox
+import org.es.tomas.pedra_paper_tisores.ui.Common.PlayerNameBox
+import org.es.tomas.pedra_paper_tisores.ui.Common.RoundsBox
 
 //import org.es.tomas.pedra_paper_tisores.ui.Common.GamemodeBox
 
@@ -29,8 +33,7 @@ import org.es.tomas.pedra_paper_tisores.ui.Common.GamemodeBox
 fun GamePreferencesScreen() {
     val preferences = MyPreferencesDataStore(context = LocalContext.current)
     val gamemode by preferences.getGamemode.collectAsState(0)
-    val minNRounds by preferences.getMinNRounds.collectAsState(0)
-    val maxNRounds by preferences.getMaxNRounds.collectAsState(0)
+    val nRounds by preferences.getNRounds.collectAsState(0)
     val playerName by preferences.getPlayerName.collectAsState(0)
     val coroutineScope = rememberCoroutineScope()
 
@@ -66,28 +69,21 @@ fun GamePreferencesScreen() {
         )
         Spacer(Modifier.padding(8.dp))
         RoundsBox(
-            min = minNRounds,
-            max = maxNRounds,
-            onNumberRoundsChange = { range ->
+            nRounds = nRounds,
+            onNumberRoundsChange = { nRounds ->
                 coroutineScope.launch {
-                    preferences.setMinNRounds(range.start.toInt())
-                    preferences.setMaxNRounds(range.endInclusive.toInt())
+                    preferences.setMinNRounds(nRounds)
+                }
+            }
+        )
+        Spacer(Modifier.padding(8.dp))
+        PlayerNameBox(
+            playerName = playerName.toString(),
+            onNameChange = { name ->
+                coroutineScope.launch {
+                    preferences.setPlayerName(name)
                 }
             }
         )
     }
 }
-
-@Composable
-fun RoundsBox(
-    min: Int,
-    max: Int,
-    onNumberRoundsChange: (ClosedFloatingPointRange<Float>) -> Unit
-) {
-    Card(
-
-    ) {
-
-    }
-}
-

@@ -13,8 +13,7 @@ class MyPreferencesDataStore(
     companion object {
         private val Context.dataStore by preferencesDataStore("preferences")
         private val GAMEMODE = stringPreferencesKey("gamemode")
-        private val MINNROUNDS = intPreferencesKey("minNRounds")
-        private val MAXNROUNDS = intPreferencesKey("maxNRounds")
+        private val NROUNDS = intPreferencesKey("nRounds")
         private val PLAYERNAME = stringPreferencesKey("playerName")
     }
 
@@ -22,12 +21,8 @@ class MyPreferencesDataStore(
         preferences[GAMEMODE] ?: 0
     }
 
-    val getMinNRounds = context.dataStore.data.map { preferences ->
-        preferences[MINNROUNDS] ?: 0
-    }
-
-    val getMaxNRounds = context.dataStore.data.map { preferences ->
-        preferences[MAXNROUNDS] ?: 0
+    val getNRounds = context.dataStore.data.map { preferences ->
+        preferences[NROUNDS] ?: 0
     }
 
     val getPlayerName = context.dataStore.data.map { preferences ->
@@ -42,13 +37,7 @@ class MyPreferencesDataStore(
 
     suspend fun setMinNRounds (nRounds: Int) {
         context.dataStore.edit { preferences ->
-            preferences[MINNROUNDS] = nRounds
-        }
-    }
-
-    suspend fun setMaxNRounds (nRounds: Int) {
-        context.dataStore.edit { preferences ->
-            preferences[MAXNROUNDS] = nRounds
+            preferences[NROUNDS] = nRounds
         }
     }
 

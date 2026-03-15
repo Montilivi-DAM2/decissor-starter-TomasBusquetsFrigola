@@ -17,6 +17,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -130,14 +132,128 @@ fun GamemodeBox(
                     bottom = 10.dp
                 )
             )
-            Botó(
-                text = "Standard Game Mode",
-                click = { onGamemodeValueChange("Standard") }
+            Text(
+                text = "Choose the game mode:",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
             )
-            Spacer(Modifier.padding(5.dp))
+            Row(
+
+            ) {
+                Botó(
+                    modifier = Modifier.weight(4f),
+                    text = "Standard",
+                    click = { onGamemodeValueChange("Standard") }
+                )
+                Spacer(Modifier.weight(1f))
+                Botó(
+                    modifier = Modifier.weight(4f),
+                    text = "Sheldon",
+                    click = { onGamemodeValueChange("Sheldon") }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun RoundsBox(
+    nRounds: Int,
+    onNumberRoundsChange: (Int) -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .padding(16.dp),
+        colors = CardDefaults.cardColors(
+            contentColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(
+            Modifier
+                .padding(16.dp)
+        ) {
+            Text(
+                text = "NUMBER OF ROUNDS",
+                style = MaterialTheme.typography.headlineMedium
+            )
+            HorizontalDivider(
+                Modifier.padding(
+                    top = 5.dp,
+                    bottom = 10.dp
+                )
+            )
+            Text(
+                text = "Choose the number of rounds:",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(4.dp)
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Slider(
+                    modifier = Modifier
+                        .weight(8f),
+                    value = nRounds.toFloat(),
+                    onValueChange = {
+                        onNumberRoundsChange(it.toInt())
+                    },
+                    valueRange = (1f..10f)
+                )
+                Text(
+                    text = nRounds.toString(),
+                    modifier = Modifier
+                        .weight(1f)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun PlayerNameBox(
+    playerName: String,
+    onNameChange: (String) -> Unit
+) {
+    var newName: String = playerName
+    Card(
+        modifier = Modifier
+            .padding(16.dp),
+        colors = CardDefaults.cardColors(
+            contentColor = MaterialTheme.colorScheme.primary,
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Column(
+            Modifier.padding(16.dp)
+        ) {
+            Text(
+                text = "SET YOUR NAME:",
+                style = MaterialTheme.typography.headlineMedium
+            )
+            HorizontalDivider(
+                Modifier.padding(
+                    top = 5.dp,
+                    bottom = 10.dp
+                )
+            )
+            OutlinedTextField(
+                value = "",
+                onValueChange = {
+                    newName = it
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally),
+                label = {Text("Your name", style = MaterialTheme.typography.headlineSmall)},
+                singleLine = true,
+            )
+            Spacer(Modifier.padding(1.dp))
             Botó(
-                text = "Sheldon Game mode",
-                click = { onGamemodeValueChange("Sheldon") }
+                text = "Submitt",
+                click = {
+                    onNameChange(newName)
+                }
             )
         }
     }
