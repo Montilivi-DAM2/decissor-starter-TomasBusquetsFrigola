@@ -1,4 +1,4 @@
-package org.es.tomas.pedra_paper_tisores.Model
+package org.es.tomas.pedra_paper_tisores.Model.DataClasses
 
 data class Player(
     val name: String,

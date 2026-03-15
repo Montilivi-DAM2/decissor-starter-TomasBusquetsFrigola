@@ -15,8 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import org.es.tomas.pedra_paper_tisores.Model.Data
-import org.es.tomas.pedra_paper_tisores.Model.Player
+import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Data
+import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
 import org.es.tomas.pedra_paper_tisores.ui.Common.Botó
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.RockPaperScissorsDestiny
 

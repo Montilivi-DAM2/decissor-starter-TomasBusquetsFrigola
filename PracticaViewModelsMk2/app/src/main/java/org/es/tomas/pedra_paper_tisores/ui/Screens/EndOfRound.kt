@@ -19,9 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import org.es.tomas.pedra_paper_tisores.Model.Enums.Plays
-import org.es.tomas.pedra_paper_tisores.Model.Player
+import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
 import org.es.tomas.pedra_paper_tisores.ui.Common.Botó
-import org.es.tomas.pedra_paper_tisores.ui.Common.GameResultDisplay
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.HomePageDestiny
 
 @Composable

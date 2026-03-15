@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import org.es.tomas.pedra_paper_tisores.Model.Data
+import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Data
 import org.es.tomas.pedra_paper_tisores.Model.Enums.Plays
-import org.es.tomas.pedra_paper_tisores.Model.Player
+import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
 import org.es.tomas.pedra_paper_tisores.ui.Common.PlaySelector
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.EndOfGameScreenDestiny
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.EndOfRoundScreenDestiny
