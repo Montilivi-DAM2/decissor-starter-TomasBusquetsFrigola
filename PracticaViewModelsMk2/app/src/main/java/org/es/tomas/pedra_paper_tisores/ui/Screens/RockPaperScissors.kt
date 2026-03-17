@@ -9,6 +9,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -25,6 +27,7 @@ import org.es.tomas.pedra_paper_tisores.ui.Navigation.EndOfGameScreenDestiny
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.EndOfRoundScreenDestiny
 //import org.es.tomas.pedra_paper_tisores.ui.Screens.RockPaperScissors
 import org.es.tomas.pedra_paper_tisores.ui.ViewModels.GameScreenViewModel
+import org.es.tomas.pedra_paper_tisores.ui.localPreferences
 
 //region: Screen
 @Composable
@@ -33,6 +36,9 @@ fun RockPaperScissors(
     viewModel: GameScreenViewModel = viewModel(),
     navController: NavController = rememberNavController(),
 ) {
+    val preferences = localPreferences.current
+    val gamemode by preferences.getGamemode.collectAsState("Standard")
+    val nRounds by preferences.getNRounds.collectAsState(3)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -52,15 +58,17 @@ fun RockPaperScissors(
             color = MaterialTheme.colorScheme.onPrimary
         )
         HorizontalDivider(Modifier.padding(20.dp))
-        PlaySelector(viewModel, rival, navController, Plays.ROCK)
+        PlaySelector(viewModel, rival, navController, Plays.ROCK, nRounds)
         Spacer(Modifier.padding(5.dp))
-        PlaySelector(viewModel, rival, navController, Plays.PAPER)
+        PlaySelector(viewModel, rival, navController, Plays.PAPER, nRounds)
         Spacer(Modifier.padding(5.dp))
-        PlaySelector(viewModel, rival, navController, Plays.SCISSORS)
-        Spacer(Modifier.padding(5.dp))
-        PlaySelector(viewModel, rival, navController, Plays.SPOCK)
-        Spacer(Modifier.padding(5.dp))
-        PlaySelector(viewModel, rival, navController, Plays.LIZARD)
+        PlaySelector(viewModel, rival, navController, Plays.SCISSORS, nRounds)
+        if (gamemode == "Sheldon") {
+            Spacer(Modifier.padding(5.dp))
+            PlaySelector(viewModel, rival, navController, Plays.SPOCK, nRounds)
+            Spacer(Modifier.padding(5.dp))
+            PlaySelector(viewModel, rival, navController, Plays.LIZARD, nRounds)
+        }
     }
 }
 
@@ -82,33 +90,34 @@ fun compareSelectedOptions(
     rivalPlay: Plays,
     yourPlay: Plays,
     rival: Player,
-    navController: NavController
+    navController: NavController,
+    nRounds: Int
 ) {
     if (yourPlay == Plays.PAPER) {
         if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.LIZARD) {
             rival.hasWonRound()
-            if (rival.wonRounds >= 3) {
+            if (rival.wonRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
         }
         else if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SPOCK) {
             rival.hasLostRound()
-            if (rival.lostRounds >= 3) {
+            if (rival.lostRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
@@ -116,9 +125,9 @@ fun compareSelectedOptions(
         else {
             navController.navigate(
                 route = EndOfRoundScreenDestiny(
-                    rival = rival,
-                    yourPlay = yourPlay,
-                    rivalPlays = rivalPlay
+                    rival,
+                    yourPlay,
+                    rivalPlay
                 )
             )
         }
@@ -126,28 +135,28 @@ fun compareSelectedOptions(
     else if (yourPlay == Plays.SCISSORS) {
         if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SPOCK) {
             rival.hasWonRound()
-            if (rival.wonRounds >= 3) {
+            if (rival.wonRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
         }
         else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.LIZARD) {
             rival.hasLostRound()
-            if (rival.lostRounds >= 3) {
+            if (rival.lostRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
@@ -155,9 +164,9 @@ fun compareSelectedOptions(
         else {
             navController.navigate(
                 route = EndOfRoundScreenDestiny(
-                    rival = rival,
-                    yourPlay = yourPlay,
-                    rivalPlays = rivalPlay
+                    rival,
+                    yourPlay,
+                    rivalPlay
                 )
             )
         }
@@ -165,28 +174,28 @@ fun compareSelectedOptions(
     else if (yourPlay == Plays.ROCK) {
         if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.LIZARD) {
             rival.hasWonRound()
-            if (rival.wonRounds >= 3) {
+            if (rival.wonRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
         }
         else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.SPOCK) {
             rival.hasLostRound()
-            if (rival.lostRounds >= 3) {
+            if (rival.lostRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
@@ -194,9 +203,9 @@ fun compareSelectedOptions(
         else {
             navController.navigate(
                 route = EndOfRoundScreenDestiny(
-                    rival = rival,
-                    yourPlay = yourPlay,
-                    rivalPlays = rivalPlay
+                    rival,
+                    yourPlay,
+                    rivalPlay
                 )
             )
         }
@@ -204,28 +213,28 @@ fun compareSelectedOptions(
     else if (yourPlay == Plays.SPOCK) {
         if (rivalPlay == Plays.PAPER || rivalPlay == Plays.LIZARD) {
             rival.hasWonRound()
-            if (rival.wonRounds >= 3) {
+            if (rival.wonRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
         }
         else if (rivalPlay == Plays.ROCK || rivalPlay == Plays.SCISSORS) {
             rival.hasLostRound()
-            if (rival.lostRounds >= 3) {
+            if (rival.lostRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
@@ -233,9 +242,9 @@ fun compareSelectedOptions(
         else {
             navController.navigate(
                 route = EndOfRoundScreenDestiny(
-                    rival = rival,
-                    yourPlay = yourPlay,
-                    rivalPlays = rivalPlay
+                    rival,
+                    yourPlay,
+                    rivalPlay
                 )
             )
         }
@@ -243,28 +252,28 @@ fun compareSelectedOptions(
     else if (yourPlay == Plays.LIZARD) {
         if (rivalPlay == Plays.SCISSORS || rivalPlay == Plays.ROCK) {
             rival.hasWonRound()
-            if (rival.wonRounds >= 3) {
+            if (rival.wonRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
         }
         else if (rivalPlay == Plays.PAPER || rivalPlay == Plays.SPOCK) {
             rival.hasLostRound()
-            if (rival.lostRounds >= 3) {
+            if (rival.lostRounds >= nRounds) {
                 navController.navigate(EndOfGameScreenDestiny(rival))
             } else {
                 navController.navigate(
                     route = EndOfRoundScreenDestiny(
-                        rival = rival,
-                        yourPlay = yourPlay,
-                        rivalPlays = rivalPlay
+                        rival,
+                        yourPlay,
+                        rivalPlay
                     )
                 )
             }
@@ -272,9 +281,9 @@ fun compareSelectedOptions(
         else {
             navController.navigate(
                 route = EndOfRoundScreenDestiny(
-                    rival = rival,
-                    yourPlay = yourPlay,
-                    rivalPlays = rivalPlay
+                    rival,
+                    yourPlay,
+                    rivalPlay
                 )
             )
         }

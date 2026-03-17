@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -20,17 +23,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
+import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
 import org.es.tomas.pedra_paper_tisores.Model.DataStorage.MyPreferencesDataStore
 import org.es.tomas.pedra_paper_tisores.ui.Common.GamemodeBox
 import org.es.tomas.pedra_paper_tisores.ui.Common.PlayerNameBox
 import org.es.tomas.pedra_paper_tisores.ui.Common.RoundsBox
+import org.es.tomas.pedra_paper_tisores.ui.Navigation.RockPaperScissorsDestiny
 
 //import org.es.tomas.pedra_paper_tisores.ui.Common.GamemodeBox
 
 @Preview
 @Composable
-fun GamePreferencesScreen() {
+fun GamePreferencesScreen(
+    navController: NavController = rememberNavController(),
+    player: Player = Player("")
+) {
     val preferences = MyPreferencesDataStore(context = LocalContext.current)
     val gamemode by preferences.getGamemode.collectAsState(0)
     val nRounds by preferences.getNRounds.collectAsState(0)
@@ -67,7 +77,6 @@ fun GamePreferencesScreen() {
                 }
             }
         )
-        Spacer(Modifier.padding(8.dp))
         RoundsBox(
             nRounds = nRounds,
             onNumberRoundsChange = { nRounds ->
@@ -76,7 +85,6 @@ fun GamePreferencesScreen() {
                 }
             }
         )
-        Spacer(Modifier.padding(8.dp))
         PlayerNameBox(
             playerName = playerName.toString(),
             onNameChange = { name ->
@@ -85,5 +93,21 @@ fun GamePreferencesScreen() {
                 }
             }
         )
+        Button(
+            onClick = {
+                navController.navigate(RockPaperScissorsDestiny(player))
+            },
+            modifier = Modifier
+                .fillMaxWidth(),
+            enabled = true,
+            colors = ButtonColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.onSurface,
+                disabledContainerColor = MaterialTheme.colorScheme.background,
+                disabledContentColor = MaterialTheme.colorScheme.onBackground
+            )
+        ) {
+            Text("PLAY")
+        }
     }
 }

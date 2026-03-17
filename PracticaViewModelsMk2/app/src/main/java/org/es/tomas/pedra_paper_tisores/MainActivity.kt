@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import org.es.tomas.pedra_paper_tisores.ui.App
 import org.es.tomas.pedra_paper_tisores.ui.theme.Pedra_Paper_TisoresTheme
 
@@ -20,9 +21,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Pedra_Paper_TisoresTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    App()
-                }
+                val navController = rememberNavController();
+                App(navController)
             }
         }
     }

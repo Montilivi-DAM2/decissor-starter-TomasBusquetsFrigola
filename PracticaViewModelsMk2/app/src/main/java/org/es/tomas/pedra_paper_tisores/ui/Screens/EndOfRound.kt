@@ -11,6 +11,8 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -22,6 +24,7 @@ import org.es.tomas.pedra_paper_tisores.Model.Enums.Plays
 import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
 import org.es.tomas.pedra_paper_tisores.ui.Common.Botó
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.HomePageDestiny
+import org.es.tomas.pedra_paper_tisores.ui.localPreferences
 
 @Composable
 fun EndOfRoundScreen(
@@ -30,6 +33,8 @@ fun EndOfRoundScreen(
     rivalPlay: Plays,
     navController: NavController = rememberNavController(),
 ) {
+    val preferences = localPreferences.current
+    val yourName by preferences.getPlayerName.collectAsState("YOUR")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -48,7 +53,7 @@ fun EndOfRoundScreen(
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = "--- ${rival.name} VS YOU ---",
+                text = "--- ${rival.name} VS $yourName ---",
                 style = MaterialTheme.typography.displayMedium,
                 color = MaterialTheme.colorScheme.onSecondary
             )
@@ -67,7 +72,7 @@ fun EndOfRoundScreen(
                 .align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = "YOUR PLAY: $yourPlay",
+                text = "${yourName}'S PLAY: $yourPlay",
                 style = MaterialTheme.typography.displaySmall,
                 color = MaterialTheme.colorScheme.onSecondary,
                 textAlign = TextAlign.Center

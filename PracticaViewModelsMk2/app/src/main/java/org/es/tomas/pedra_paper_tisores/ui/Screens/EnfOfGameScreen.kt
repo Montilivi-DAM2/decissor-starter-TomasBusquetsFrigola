@@ -8,16 +8,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
+import org.es.tomas.pedra_paper_tisores.ui.localPreferences
 
 @Composable
 fun EndOfGameScreen(
     rival: Player
 ) {
+    val preferences = localPreferences.current
+    val nRounds by preferences.getNRounds.collectAsState(3)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -31,13 +36,13 @@ fun EndOfGameScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        if (rival.wonRounds >= 3) {
+        if (rival.wonRounds >= nRounds) {
             Text(
                 text = "YOU LOST",
                 color = MaterialTheme.colorScheme.onPrimary,
                 style = MaterialTheme.typography.headlineLarge
             )
-        } else if (rival.lostRounds >= 3) {
+        } else if (rival.lostRounds >= nRounds) {
             Text(
                 text = "YOU WON",
                 color = MaterialTheme.colorScheme.onPrimary,

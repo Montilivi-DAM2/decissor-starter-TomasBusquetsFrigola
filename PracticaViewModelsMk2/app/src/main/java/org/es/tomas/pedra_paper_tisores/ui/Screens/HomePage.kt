@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Data
 import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
 import org.es.tomas.pedra_paper_tisores.ui.Common.Botó
+import org.es.tomas.pedra_paper_tisores.ui.Navigation.PreferencesScreenDestiny
 import org.es.tomas.pedra_paper_tisores.ui.Navigation.RockPaperScissorsDestiny
 
 @Preview
@@ -65,7 +66,7 @@ fun HomePage(
         Botó(
             text = "PLAY",
             click = {
-                navController.navigate(RockPaperScissorsDestiny(player))
+                navController.navigate(PreferencesScreenDestiny(player))
             }
         )
 //        Spacer(Modifier.padding(20.dp))

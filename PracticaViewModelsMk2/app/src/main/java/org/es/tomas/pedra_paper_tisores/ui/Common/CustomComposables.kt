@@ -74,7 +74,8 @@ fun PlaySelector(
     viewModel: GameScreenViewModel,
     rival: Player,
     navController: NavController,
-    textOption: Plays
+    textOption: Plays,
+    nRounds: Int
 ) {
     Botó(
         text = textOption.toString(),
@@ -84,7 +85,8 @@ fun PlaySelector(
                 rivalPlay = viewModel.state.result,
                 yourPlay = textOption,
                 rival = rival,
-                navController = navController
+                navController = navController,
+                nRounds = nRounds
             )
         }
     )

@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import org.es.tomas.pedra_paper_tisores.Preferences.GamePreferencesScreen
 import org.es.tomas.pedra_paper_tisores.ui.Screens.EndOfGameScreen
 import org.es.tomas.pedra_paper_tisores.ui.Screens.EndOfRoundScreen
 import org.es.tomas.pedra_paper_tisores.ui.Screens.HomePage
@@ -19,34 +20,43 @@ import org.es.tomas.pedra_paper_tisores.ui.Screens.RockPaperScissors
 @Composable
 fun navigationGraf(
     navigationController: NavHostController = rememberNavController(),
-    paddingValues: PaddingValues =PaddingValues(0.dp)
+    paddingValues: PaddingValues = PaddingValues(0.dp)
 ) {
     NavHost(
-        navController =navigationController,
+        navController = navigationController,
         startDestination = HomePageDestiny,
         modifier = Modifier.padding(paddingValues)
     ) {
         composable<HomePageDestiny> {
-            HomePage()
+            HomePage(
+                navController = navigationController
+            )
         }
         composable<RockPaperScissorsDestiny> {
-            var destiny: RockPaperScissorsDestiny = it.toRoute()
+            val destiny: RockPaperScissorsDestiny = it.toRoute()
             RockPaperScissors(
-                rival = destiny.rival
+                rival = destiny.player
             )
         }
         composable<EndOfRoundScreenDestiny> {
-            var destiny: EndOfRoundScreenDestiny = it.toRoute()
+            val destiny: EndOfRoundScreenDestiny = it.toRoute()
             EndOfRoundScreen(
-                destiny.rival,
-                yourPlay = destiny.yourPlay,
-                rivalPlay = destiny.rivalPlays
+                destiny.player,
+                destiny.yourPlay,
+                destiny.hisPlay
             )
         }
         composable<EndOfGameScreenDestiny> {
-            var destiny: EndOfGameScreenDestiny = it.toRoute()
-            EndOfGameScreenDestiny(
-                rival = destiny.rival
+            val destiny: EndOfGameScreenDestiny = it.toRoute()
+            EndOfGameScreen(
+                destiny.player
+            )
+        }
+        composable<PreferencesScreenDestiny> {
+            val destiny: PreferencesScreenDestiny = it.toRoute()
+            GamePreferencesScreen(
+                navController = navigationController,
+                player = destiny.player
             )
         }
     }

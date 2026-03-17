@@ -8,14 +8,13 @@ import org.es.tomas.pedra_paper_tisores.Model.DataClasses.Player
 object HomePageDestiny
 
 @Serializable
-data class RockPaperScissorsDestiny (val rival: Player)
+data class RockPaperScissorsDestiny(val player: Player)
 
 @Serializable
-data class EndOfRoundScreenDestiny (
-    val rival: Player,
-    val yourPlay: Plays,
-    val rivalPlays: Plays
-)
+data class EndOfRoundScreenDestiny(val player: Player, val yourPlay: Plays, val hisPlay: Plays)
 
 @Serializable
-data class EndOfGameScreenDestiny (val rival: Player)
+data class EndOfGameScreenDestiny(val player: Player)
+
+@Serializable
+data class PreferencesScreenDestiny(val player: Player)
